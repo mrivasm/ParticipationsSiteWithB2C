@@ -93,13 +93,13 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "angular-b2c-sample-app:build:production"
+              "buildTarget": "angular-b2c-sample-app:build:production"
             },
             "e2e": {
-              "browserTarget": "angular-b2c-sample-app:build:e2e"
+              "buildTarget": "angular-b2c-sample-app:build:e2e"
             },
             "dev": {
-              "browserTarget": "angular-b2c-sample-app:build:dev"
+              "buildTarget": "angular-b2c-sample-app:build:dev"
             }
           },
           "defaultConfiguration": "dev"
@@ -107,7 +107,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "angular-b2c-sample-app:build"
+            "buildTarget": "angular-b2c-sample-app:build"
           }
         },
         "test": {
