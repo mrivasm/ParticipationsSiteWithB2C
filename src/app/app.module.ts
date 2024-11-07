@@ -14,7 +14,7 @@ import { HomeComponent } from './home/home.component';
 import { ProfileComponent } from './profile/profile.component';
 import { FailedComponent } from './failed/failed.component';
 
-import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi } from '@angular/common/http';
 import { IPublicClientApplication, PublicClientApplication, InteractionType, BrowserCacheLocation, LogLevel } from '@azure/msal-browser';
 import { MsalGuard, MsalInterceptor, MsalBroadcastService, MsalInterceptorConfiguration, MsalModule, MsalService, MSAL_GUARD_CONFIG, MSAL_INSTANCE, MSAL_INTERCEPTOR_CONFIG, MsalGuardConfiguration, MsalRedirectComponent } from '@azure/msal-angular';
 
@@ -68,47 +68,41 @@ export function MSALGuardConfigFactory(): MsalGuardConfiguration {
   };
 }
 
-@NgModule({
-  declarations: [
-    AppComponent,
-    HomeComponent,
-    ProfileComponent,
-    FailedComponent
-  ],
-  imports: [
-    BrowserModule,
-    NoopAnimationsModule, // Animations cause delay which interfere with E2E tests
-    AppRoutingModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatListModule,
-    MatMenuModule,
-    MatTableModule,
-    HttpClientModule,
-    MsalModule
-  ],
-  providers: [
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: MsalInterceptor,
-      multi: true
-    },
-    {
-      provide: MSAL_INSTANCE,
-      useFactory: MSALInstanceFactory
-    },
-    {
-      provide: MSAL_GUARD_CONFIG,
-      useFactory: MSALGuardConfigFactory
-    },
-    {
-      provide: MSAL_INTERCEPTOR_CONFIG,
-      useFactory: MSALInterceptorConfigFactory
-    },
-    MsalService,
-    MsalGuard,
-    MsalBroadcastService
-  ],
-  bootstrap: [AppComponent, MsalRedirectComponent]
-})
+@NgModule({ declarations: [
+        AppComponent,
+        HomeComponent,
+        ProfileComponent,
+        FailedComponent
+    ],
+    bootstrap: [AppComponent, MsalRedirectComponent], imports: [BrowserModule,
+        NoopAnimationsModule, // Animations cause delay which interfere with E2E tests
+        AppRoutingModule,
+        MatButtonModule,
+        MatToolbarModule,
+        MatListModule,
+        MatMenuModule,
+        MatTableModule,
+        MsalModule], providers: [
+        {
+            provide: HTTP_INTERCEPTORS,
+            useClass: MsalInterceptor,
+            multi: true
+        },
+        {
+            provide: MSAL_INSTANCE,
+            useFactory: MSALInstanceFactory
+        },
+        {
+            provide: MSAL_GUARD_CONFIG,
+            useFactory: MSALGuardConfigFactory
+        },
+        {
+            provide: MSAL_INTERCEPTOR_CONFIG,
+            useFactory: MSALInterceptorConfigFactory
+        },
+        MsalService,
+        MsalGuard,
+        MsalBroadcastService,
+        provideHttpClient(withInterceptorsFromDi())
+    ] })
 export class AppModule { }
