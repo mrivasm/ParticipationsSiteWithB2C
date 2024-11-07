@@ -11,9 +11,9 @@ export const environment = {
     },
     b2cPolicies: {
         names: {
-            signUpSignIn: "B2C_1_signin",
-            resetPassword: "B2C_1_reset",
-            editProfile: "B2C_1_edit_profile"
+            signUpSignIn: 'B2C_1_signin',
+            resetPassword: 'B2C_1_reset',
+            editProfile: 'B2C_1_edit_profile'
         },
         authorities: {
             signUpSignIn: {
@@ -26,6 +26,6 @@ export const environment = {
                 authority: "https://AgvDevParticipations.b2clogin.com/AgvDevParticipations.onmicrosoft.com/B2C_1_edit_profile"
             }
         },
-        authorityDomain: "AgvDevParticipations.b2clogin.com"
+        authorityDomain: 'AgvDevParticipations.b2clogin.com'
     }
 };
